@@ -14,7 +14,7 @@ const carroSchema = z.object({
   km: z.number(),
   foto: z.string(),
   acessorios: z.string().nullable().optional(),
-  combustivel: z.enum(Combustiveis).optional(),
+  combustivel: z.nativeEnum(Combustiveis).optional(),
   destaque: z.boolean().optional(),
   marcaId: z.number(),
 })
@@ -24,6 +24,22 @@ router.get("/", async (req, res) => {
     const carros = await prisma.carro.findMany({
       include: {
         marca: true,
+      }
+    })
+    res.status(200).json(carros)
+  } catch (error) {
+    res.status(500).json({ erro: error })
+  }
+})
+
+router.get("/destaques", async (req, res) => {
+  try {
+    const carros = await prisma.carro.findMany({
+      include: {
+        marca: true,
+      },
+      where: {
+        destaque: true
       }
     })
     res.status(200).json(carros)
