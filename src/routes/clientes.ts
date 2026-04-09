@@ -84,6 +84,15 @@ router.post("/", async (req, res) => {
     return
   }
 
+ // Verificação de e-mail duplicado
+  const verificaCliente = await prisma.cliente.findUnique({
+    where: { email: valida.data.email }
+  })
+  if (verificaCliente) {
+    res.status(400).json({ erro: "E-mail já cadastrado" })
+    return
+  }
+
   const erros = validaSenha(valida.data.senha)
   if (erros.length > 0) {
     res.status(400).json({ erro: erros.join("; ") })
@@ -105,7 +114,7 @@ router.post("/", async (req, res) => {
     })
     res.status(201).json(cliente)
   } catch (error) {
-    res.status(400).json(error)
+    res.status(400).json({erro: error})
   }
 })
 
