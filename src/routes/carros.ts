@@ -14,7 +14,7 @@ const carroSchema = z.object({
   km: z.number(),
   foto: z.string(),
   acessorios: z.string().nullable().optional(),
-  combustivel: z.nativeEnum(Combustiveis).optional(),
+  combustivel: z.enum(Combustiveis).optional(),
   destaque: z.boolean().optional(),
   marcaId: z.number(),
 })
