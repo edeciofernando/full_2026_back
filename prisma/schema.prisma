@@ -33,7 +33,7 @@ model Carro {
   destaque       Boolean      @default(true)
   marca          Marca        @relation(fields: [marcaId], references: [id])
   marcaId        Int
-  propostas     Proposta[]
+  propostas      Proposta[]
   admin          Admin?       @relation(fields: [adminId], references: [id])
   adminId        String?      @db.VarChar(36)    
   @@map("carros")
@@ -62,7 +62,7 @@ model Proposta {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt  
   admin       Admin?    @relation(fields: [adminId], references: [id])
-  adminId     String?    @db.VarChar(36)  
+  adminId     String?   @db.VarChar(36)  
   @@map("propostas")
 }
 

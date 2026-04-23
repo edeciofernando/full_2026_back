@@ -1,5 +1,6 @@
 import express from 'express'
 import cors from 'cors'
+import { Combustiveis } from "../generated/prisma/enums"
 
 import routesMarcas from './routes/marcas'
 import routesCarros from './routes/carros'
@@ -27,6 +28,16 @@ app.use("/admins", routesAdmins)
 
 app.get('/', (req, res) => {
   res.send('API: Revenda de Veículos')
+})
+
+app.get('/combustiveis', (req, res) => {
+  // const combustiveisList = Object.entries(Combustiveis).map(([key, value]) => ({
+  //   key,
+  //   value,
+  // }))
+  const combustiveisList = Object.values(Combustiveis)
+
+  res.status(200).json(combustiveisList)
 })
 
 app.listen(port, () => {
