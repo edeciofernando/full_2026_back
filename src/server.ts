@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import { Combustiveis } from "../generated/prisma/enums"
+import { Combustiveis } from '@prisma/client'
 
 import routesMarcas from './routes/marcas'
 import routesCarros from './routes/carros'

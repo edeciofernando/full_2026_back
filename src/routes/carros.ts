@@ -1,6 +1,7 @@
-import { prisma } from "../../lib/prisma"
-import { Combustiveis } from "../../generated/prisma/enums"
+import { PrismaClient, Combustiveis } from '@prisma/client'
 import { verificaToken } from '../middewares/verificaToken'
+
+const prisma = new PrismaClient()
 
 import { Router } from 'express'
 import { z } from 'zod'
