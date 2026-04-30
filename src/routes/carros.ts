@@ -1,5 +1,6 @@
 import { prisma } from "../../lib/prisma"
 import { Combustiveis } from "../../generated/prisma/enums"
+import { verificaToken } from '../middewares/verificaToken'
 
 import { Router } from 'express'
 import { z } from 'zod'
@@ -88,7 +89,7 @@ router.post("/", async (req, res) => {
   }
 })
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verificaToken, async (req, res) => {
   const { id } = req.params
 
   try {
@@ -177,6 +178,26 @@ router.get("/pesquisa/:termo", async (req, res) => {
         res.status(500).json({ erro: error })
       }
     }
+  }
+})
+
+
+router.patch("/destacar/:id", verificaToken, async (req, res) => {
+  const { id } = req.params
+
+  try {
+    const carroDestacar = await prisma.carro.findUnique({
+      where: { id: Number(id) },
+      select: { destaque: true }, 
+    });
+
+    const carro = await prisma.carro.update({
+      where: { id: Number(id) },
+      data: { destaque: !carroDestacar?.destaque }
+    })
+    res.status(200).json(carro)
+  } catch (error) {
+    res.status(400).json(error)
   }
 })
 

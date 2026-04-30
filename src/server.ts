@@ -31,13 +31,8 @@ app.get('/', (req, res) => {
 })
 
 app.get('/combustiveis', (req, res) => {
-  // const combustiveisList = Object.entries(Combustiveis).map(([key, value]) => ({
-  //   key,
-  //   value,
-  // }))
-  const combustiveisList = Object.values(Combustiveis)
-
-  res.status(200).json(combustiveisList)
+  const combustiveis = Object.keys(Combustiveis)
+  res.status(200).json(combustiveis)
 })
 
 app.listen(port, () => {
